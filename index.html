@@ -617,17 +617,17 @@
 
         <section class="scene" id="scene-gigachat" aria-labelledby="gigachat-title">
           <div class="scene-head compact gigachat-head">
-            <p class="eyebrow">GigaChat-3.5-432B-A28B · ru_office_local · все 50 задач</p>
+            <p class="eyebrow">GigaChat-3.5-432B-A28B · ru_office_local · 39 задач без infra</p>
             <h1 id="gigachat-title">Аналитика прогона GigaChat</h1>
-            <p>Метрики и KPI по полному набору из 50 задач.</p>
+            <p>Метрики и KPI по 39 задачам: 11 infra fail (MCP init / timeout) выкинуты из знаменателя.</p>
           </div>
 
           <div class="gigachat-layout">
             <div class="gigachat-kpi-row" aria-label="Ключевые показатели">
               <article class="gigachat-kpi">
                 <span class="gigachat-kpi-label">pass@1</span>
-                <strong class="gigachat-kpi-num">25.3%</strong>
-                <span class="gigachat-kpi-sub">среднее по попыткам · 50 задач</span>
+                <strong class="gigachat-kpi-num">32.5%</strong>
+                <span class="gigachat-kpi-sub">среднее по попыткам · 39 задач</span>
               </article>
               <article class="gigachat-kpi is-pass">
                 <span class="gigachat-kpi-label">Pass</span>
@@ -647,7 +647,7 @@
             </div>
 
             <aside class="gigachat-filter-note">
-              Все <strong>50</strong> в знаменателе: pass 11 · fail 19 · max_turns 9 · infra 11 (MCP init / timeout).
+              В знаменателе <strong>39</strong>: pass 11 · fail 19 · max_turns 9. Infra 11 исключены.
             </aside>
 
             <section class="gigachat-fail-panel" aria-labelledby="gigachat-fail-title">
@@ -680,7 +680,7 @@
               <section class="gigachat-panel" aria-labelledby="gigachat-tools-title">
                 <div class="gigachat-panel-head">
                   <h2 id="gigachat-tools-title">С какими MCP и аргументами не справляется</h2>
-                  <span>1261 tool calls · 594 ошибок · только включённые задачи</span>
+                  <span>1261 tool calls · 594 ошибок · без infra</span>
                 </div>
                 <p class="gigachat-panel-lead">
                   Основной кластер — <code>excel-write_data_to_excel</code>: в <code>data</code> приходят строки вместо list-of-lists, pydantic отвечает validation error.
