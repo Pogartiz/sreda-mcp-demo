@@ -1,0 +1,917 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>SREDA-MCP - визуализатор</title>
+    <link rel="icon" href="data:," />
+    <script>
+      window.va =
+        window.va ||
+        function () {
+          (window.vaq = window.vaq || []).push(arguments);
+        };
+    </script>
+    <script defer src="/_vercel/insights/script.js"></script>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar" aria-label="Навигация визуализатора">
+        <a class="brand" href="./index.html#why" aria-label="Главный экран">
+          <span class="brand-mark">SM</span>
+          <span>
+            <strong>SREDA-MCP</strong>
+            <small>схема бенчмарка</small>
+          </span>
+        </a>
+
+        <nav class="scene-tabs" aria-label="Сцены">
+          <button class="scene-tab is-active" data-scene="why" title="Что оценивает бенчмарк">
+            <span>Что оцениваем</span>
+          </button>
+          <button class="scene-tab" data-scene="overview" title="Архитектура одного прогона">
+            <span>Архитектура</span>
+          </button>
+          <button class="scene-tab" data-scene="task" title="Из чего состоит задача">
+            <span>Устройство задачи</span>
+          </button>
+          <button class="scene-tab" data-scene="metrics" title="Метрики и результаты моделей">
+            <span>Метрики</span>
+          </button>
+          <button class="scene-tab" data-scene="gigachat" title="Аналитика прогона GigaChat">
+            <span>Аналитика GigaChat</span>
+          </button>
+          <button class="scene-tab" data-scene="contacts" title="Команды и материалы проекта">
+            <span>Контакты</span>
+          </button>
+        </nav>
+
+        <div class="topbar-meta" aria-label="Сводка">
+          <span>50 задач</span>
+          <span>MCP + локальные tools</span>
+        </div>
+      </header>
+
+      <main class="stage-shell">
+        <section class="scene is-active" id="scene-why" aria-labelledby="why-title">
+          <div class="scene-head why-head">
+            <p class="eyebrow">Что оценивает SREDA-MCP</p>
+            <h1 id="why-title">Может ли агент довести рабочую задачу до проверяемого результата</h1>
+            <p class="why-summary">SREDA-MCP оценивает связку «модель × harness»: понимает ли агент постановку на русском языке и может ли шаг за шагом выполнить задачу через MCP в реальной рабочей среде — с настоящими файлами, приложениями и сервисами.</p>
+          </div>
+
+          <div class="why-steps" role="tablist" aria-label="Что оценивает бенчмарк">
+            <button class="why-step is-active" type="button" role="tab" aria-selected="true" aria-controls="why-panel-request" data-why-step="request"><b>1</b><span>Рабочая задача</span></button>
+            <button class="why-step" type="button" role="tab" aria-selected="false" aria-controls="why-panel-answer" data-why-step="answer"><b>2</b><span>Действия через MCP</span></button>
+            <button class="why-step" type="button" role="tab" aria-selected="false" aria-controls="why-panel-state" data-why-step="state"><b>3</b><span>Фактический результат</span></button>
+            <button class="why-step" type="button" role="tab" aria-selected="false" aria-controls="why-panel-check" data-why-step="check"><b>4</b><span>Автопроверка</span></button>
+          </div>
+
+          <div class="why-evidence">
+            <article class="why-panel is-active" id="why-panel-request" role="tabpanel" data-why-panel="request">
+              <div class="why-narrative">
+                <span class="why-counter">1 / 4 · Постановка</span>
+                <h2>Одна задача связывает поиск, проверку изображений и подготовку документа</h2>
+                <p class="why-lead">Агенту нужно собрать сведения обо всех партнёрах с веб-страницы, проверить технические параметры их логотипов и подготовить итоговый обзор для совета директоров.</p>
+                <ol class="why-requirements">
+                  <li>Загрузить страницу и собрать названия, описания и ссылки на логотипы.</li>
+                  <li>Проверить формат и ширину каждого логотипа.</li>
+                  <li>Для каждого партнёра вынести решение «годится / не годится» и указать причину.</li>
+                  <li>Собрать полный Word-документ со сводкой и сохранить его под заданным именем.</li>
+                </ol>
+              </div>
+              <div class="why-artifact task-request-artifact">
+                <div class="artifact-heading"><span>Задача пользователя</span><code>docs/task.md</code></div>
+                <div class="user-request-card partnership-request">
+                  <span class="dialog-author">Пользователь</span>
+                  <p>Готовлю внутренний обзор партнёрств для совета директоров. На странице <a href="https://gist.githubusercontent.com/mariarivaille/abba56e063bb5503f62cc272cf4a2524/raw/be1cded6c4739dddeccc8fe933f43ce5f4e1d716/partnerships.html" target="_blank" rel="noreferrer">partnerships.html</a> есть актуальная информация о наших партнёрах — названия, описания и ссылки на их логотипы. Собери информацию обо всех партнёрах, проверь каждый логотип: нужен PNG или JPG размером не меньше 200 px по ширине. Затем составь документ Word с заголовком «Обзор партнёрств — Q3 2025», датой, введением, разделом по каждому партнёру и сводкой. Файл назови <code>Partnership_Review_Q3_2025.docx</code>.</p>
+                </div>
+                <div class="task-io-strip">
+                  <span><small>Источник</small><strong>Веб-страница с 6 партнёрами и ссылками на логотипы</strong></span>
+                  <b>→</b>
+                  <span><small>Результат</small><strong><code>Partnership_Review_Q3_2025.docx</code></strong></span>
+                </div>
+              </div>
+            </article>
+
+            <article class="why-panel" id="why-panel-answer" role="tabpanel" data-why-panel="answer" hidden>
+              <div class="why-narrative">
+                <span class="why-counter">2 / 4 · Выполнение</span>
+                <h2>Агент связывает три реальные инструментальные среды</h2>
+                <p class="why-lead"><code>fetch</code> загружает исходную страницу, <code>image-extractor</code> извлекает свойства логотипов, а <code>word</code> создаёт настоящий DOCX. Результат каждого этапа нужен на следующем.</p>
+                <dl class="why-facts">
+                  <div><dt>MCP-серверов</dt><dd>3</dd></div>
+                  <div><dt>Шагов в эталонной траектории</dt><dd>38</dd></div>
+                  <div><dt>Партнёров в источнике</dt><dd>6</dd></div>
+                </dl>
+              </div>
+              <div class="why-artifact environment-artifact">
+                <div class="artifact-heading"><span>Этапы эталонной траектории</span><code>tool_call_graph.json</code></div>
+                <ol class="execution-path">
+                  <li><b>1</b><code>fetch-fetch_html</code><span>загрузить страницу, получить названия, описания и ссылки на логотипы</span></li>
+                  <li><b>2–9</b><code>image-extractor-extract_image_from_url</code><span>проверить фактический формат и ширину изображений каждого партнёра</span></li>
+                  <li><b>10</b><code>word-create_document</code><span>создать документ, добавить заголовок, дату и введение</span></li>
+                  <li><b>11–35</b><code>word-add_heading / add_paragraph</code><span>записать шесть разделов, решения по логотипам и итоговую сводку</span></li>
+                  <li><b>36–38</b><code>word-get_document_text / list_available_documents</code><span>прочитать собранный документ, проверить наличие файла и завершить задачу</span></li>
+                </ol>
+                <p class="artifact-note">Порядок вызовов может отличаться. Проверке важны подтверждённые данные, итоговый документ и использование нужных инструментов.</p>
+              </div>
+            </article>
+
+            <article class="why-panel" id="why-panel-state" role="tabpanel" data-why-panel="state" hidden>
+              <div class="why-narrative">
+                <span class="why-counter">3 / 4 · Наблюдаемый результат</span>
+                <h2>Документ создан, но результат неполный</h2>
+                <p class="why-lead">В реальном прогоне агент проверил все шесть изображений и создал Word-документ. Однако запись остановилась после NASA: раздел Intel и итоговая сводка в файл не попали.</p>
+                <dl class="why-facts">
+                  <div><dt>Вызовов инструментов</dt><dd>36</dd></div>
+                  <div><dt>Проверенных логотипов</dt><dd>6</dd></div>
+                  <div><dt>Созданных DOCX</dt><dd>1</dd></div>
+                </dl>
+              </div>
+              <div class="why-artifact run-artifact">
+                <div class="artifact-heading"><span>Рабочая папка после реального прогона</span><span>файл и его содержимое</span></div>
+                <div class="workspace-tree compact-workspace-tree" aria-label="Содержимое рабочей папки после прогона">
+                  <strong>workspace/</strong>
+                  <span class="tree-file output">└── Partnership_Review_Q3_2025.docx <em>создан</em></span>
+                </div>
+                <div class="partner-coverage" aria-label="Разделы в созданном документе">
+                  <span class="partner-ok"><b>Mastercard</b><small>раздел есть</small></span>
+                  <span class="partner-ok"><b>eBay</b><small>раздел есть</small></span>
+                  <span class="partner-ok"><b>IBM</b><small>раздел есть</small></span>
+                  <span class="partner-ok"><b>Cisco</b><small>раздел есть</small></span>
+                  <span class="partner-ok"><b>NASA</b><small>раздел есть</small></span>
+                  <span class="partner-missing"><b>Intel</b><small>раздел отсутствует</small></span>
+                </div>
+                <div class="run-state-strip">
+                  <span><small>Вызовы по сервисам</small><strong><code>fetch: 10 · image-extractor: 6 · word: 20</code></strong></span>
+                  <span><small>Что не завершено</small><strong>раздел Intel и итоговая сводка</strong></span>
+                </div>
+                <p class="artifact-note warning-note">Наличие файла и длинная траектория сами по себе не означают, что пользовательская задача завершена.</p>
+              </div>
+            </article>
+
+            <article class="why-panel" id="why-panel-check" role="tabpanel" data-why-panel="check" hidden>
+              <div class="why-narrative">
+                <span class="why-counter">4 / 4 · Специализированная проверка</span>
+                <h2>Оценка учитывает содержимое документа и способ его получения</h2>
+                <p class="why-lead">Автопроверка открывает DOCX, ищет все разделы, проверяет решения по логотипам и итоговые числа. По сохранённой траектории она также видит, обращался ли агент к источнику, изображениям и Word.</p>
+                <div class="why-conclusion"><strong>PASS</strong> означает, что все шесть партнёров разобраны, решения подтверждены инструментами, а полный результат записан в документ.</div>
+              </div>
+              <div class="why-artifact check-artifact">
+                <div class="artifact-heading"><span>Что проверяет автопроверка этой задачи</span><code>evaluation/main.py</code></div>
+                <ol class="evaluator-checks">
+                  <li><b>1</b><span>DOCX существует, открывается и содержит точный заголовок</span></li>
+                  <li><b>2</b><span>есть содержательные разделы по всем шести партнёрам</span></li>
+                  <li><b>3</b><span>Mastercard, eBay и IBM отмечены как прошедшие проверку</span></li>
+                  <li><b>4</b><span>Cisco отклонён из-за SVG, NASA и Intel — из-за ширины 120 px</span></li>
+                  <li><b>5</b><span>сводка содержит 6 партнёров и 3 прошедших проверку логотипа</span></li>
+                  <li><b>6</b><span>в траектории использованы <code>fetch</code>, <code>image-extractor</code> и <code>word</code></span></li>
+                </ol>
+                <div class="evaluator-verdict">
+                  <span>Результат показанного прогона</span>
+                  <code>"pass": false</code>
+                  <strong>В документе нет раздела по партнёру Intel</strong>
+                </div>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="scene" id="scene-overview" aria-labelledby="overview-title">
+          <div class="scene-head compact architecture-head">
+            <p class="eyebrow">50 русскоязычных задач · верхнеуровневая архитектура</p>
+            <h1 id="overview-title">Как устроен один прогон SREDA-MCP</h1>
+            <p>Модель выбирает следующий вызов, harness исполняет его через MCP или локальный tool и возвращает ответ. После <code>claim_done</code> запускается проверка результата и траектории.</p>
+          </div>
+
+          <div class="loop-board architecture-loop-board">
+            <div class="loop-core loop-cycle">
+              <div class="cycle-stage">
+                <svg class="cycle-svg" viewBox="0 0 760 520" aria-hidden="true">
+                  <defs>
+                    <marker id="cycle-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                      <path d="M 0 0 L 10 5 L 0 10 z"></path>
+                    </marker>
+                    <marker id="cycle-exit-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                      <path d="M 0 0 L 10 5 L 0 10 z"></path>
+                    </marker>
+                  </defs>
+                  <path class="cycle-line" d="M 480 118 C 545 135, 575 165, 590 205" />
+                  <path class="cycle-line" d="M 620 320 C 600 390, 535 430, 480 438" />
+                  <path class="cycle-line" d="M 280 438 C 205 430, 150 390, 130 320" />
+                  <path class="cycle-line" d="M 130 205 C 155 135, 215 95, 280 85" />
+                  <path class="cycle-line done-line" d="M 480 68 C 500 52, 515 52, 530 68" />
+                </svg>
+                <div class="loop-center">
+                  <strong>Решение</strong>
+                  <span>следующий вызов или завершение</span>
+                </div>
+                <div class="loop-step step-model">
+                  <span>1</span>
+                  <strong>Модель</strong>
+                  <p>читает задачу, состояние рабочей среды и историю</p>
+                </div>
+                <div class="loop-step step-call">
+                  <span>2</span>
+                  <strong>Вызов tool</strong>
+                  <p>выбирает MCP или локальный tool и передаёт аргументы</p>
+                </div>
+                <div class="loop-step step-exec">
+                  <span>3</span>
+                  <strong>Исполнение tool</strong>
+                  <p>harness выполняет действие в реальном сервисе или рабочей папке</p>
+                </div>
+                <div class="loop-step step-obs">
+                  <span>4</span>
+                  <strong>Ответ tool</strong>
+                  <p>данные, ошибка и изменённое состояние возвращаются модели</p>
+                </div>
+                <div class="claim-node">
+                  <span>выход из цикла</span>
+                  <strong>claim_done</strong>
+                  <p>запускается проверка результата и траектории</p>
+                </div>
+              </div>
+            </div>
+
+            <aside class="architecture-sidebar" aria-label="Состав бенчмарка и результаты прогона">
+              <section class="architecture-side-card benchmark-scope">
+                <div class="architecture-scope-head">
+                  <strong>50</strong>
+                  <div>
+                    <h2>русскоязычных задач</h2>
+                    <p>Многошаговая работа с реальными исходными данными и наблюдаемым результатом.</p>
+                  </div>
+                </div>
+                <div class="benchmark-scenarios">
+                  <span><b>Документы и презентации</b><small>подготовить DOCX, PPTX или PDF-отчёт</small></span>
+                  <span><b>Таблицы и расчёты</b><small>обработать CSV/XLSX, посчитать показатели, построить диаграмму</small></span>
+                  <span><b>Поиск и аналитика</b><small>найти данные в вебе, сопоставить источники и собрать выводы</small></span>
+                </div>
+              </section>
+
+              <section class="architecture-side-card architecture-environment">
+                <h2>Рабочая среда</h2>
+                <p>Настоящие файлы, приложения и сервисы через MCP и локальные tools.</p>
+                <div class="architecture-chip-grid">
+                  <span>filesystem</span>
+                  <span>Word · Excel</span>
+                  <span>web search · fetch</span>
+                  <span>PDF · charts</span>
+                </div>
+              </section>
+
+              <section class="architecture-side-card architecture-evidence">
+                <h2>Что остаётся после прогона</h2>
+                <div class="architecture-chip-grid evidence-grid">
+                  <span>рабочая среда</span>
+                  <span>траектория</span>
+                  <span>PASS / FAIL</span>
+                  <span>метрики</span>
+                </div>
+              </section>
+            </aside>
+          </div>
+        </section>
+
+        <section class="scene" id="scene-task" aria-labelledby="task-title">
+          <div class="scene-head compact">
+            <p class="eyebrow">Исполняемый пакет задачи · пример Q1 sales analysis</p>
+            <h1 id="task-title">Как устроена задача SREDA-MCP</h1>
+            <p>Пакет фиксирует две стороны эксперимента: что получает агент перед запуском и как бенчмарк проверяет фактический результат после завершения работы.</p>
+          </div>
+
+          <div class="task-kit-layout">
+            <section class="task-kit-zone agent-kit panel" aria-labelledby="agent-kit-title">
+              <div class="task-kit-zone-head">
+                <span class="zone-badge blue">Агенту</span>
+                <div>
+                  <h2 id="agent-kit-title">Что получает агент</h2>
+                  <p>Постановку на русском языке, исходные данные и доступ к tools, необходимым для этой задачи.</p>
+                </div>
+              </div>
+
+              <div class="agent-kit-grid">
+                <article class="kit-component prompt-component">
+                  <div class="component-head">
+                    <span>Постановка задачи</span>
+                    <code>docs/task.md</code>
+                  </div>
+                  <blockquote>«В файле sales_data.csv дан план в долларах и фактические продажи. Пересчитай план по официальному курсу ЦБ, сравни его с фактом, построй диаграмму, найди прогноз курса на II квартал и сохрани analysis_report.txt».</blockquote>
+                  <p>Задача задаёт требования к результату, но не предписывает единственную последовательность вызовов.</p>
+                </article>
+
+                <article class="kit-component workspace-component">
+                  <div class="component-head">
+                    <span>Исходные материалы</span>
+                    <code>initial_workspace/</code>
+                  </div>
+                  <div class="file-example">
+                    <strong>sales_data.csv</strong>
+                    <span>Продажи_руб · План_usd</span>
+                    <small>данные за январь, февраль и март 2024 года</small>
+                  </div>
+                </article>
+
+                <article class="kit-component tools-component">
+                  <div class="component-head">
+                    <span>Доступные инструменты</span>
+                    <code>task_config.json</code>
+                  </div>
+                  <dl class="tool-config">
+                    <div><dt>MCP-серверы</dt><dd><code>filesystem</code>, <code>ddg-search</code>, <code>mcp-server-chart</code></dd></div>
+                    <div><dt>Локальные tools</dt><dd><code>claim_done</code>, история и управление контекстом</dd></div>
+                  </dl>
+                </article>
+              </div>
+            </section>
+
+            <section class="task-kit-zone evaluator-kit panel" aria-labelledby="evaluator-kit-title">
+              <div class="task-kit-zone-head">
+                <span class="zone-badge green">Бенчмарку</span>
+                <div>
+                  <h2 id="evaluator-kit-title">Как определяется успех</h2>
+                  <p>После завершения проверка читает итоговую рабочую папку и сохранённую траекторию.</p>
+                </div>
+              </div>
+
+              <div class="evaluation-components">
+                <article class="kit-component truth-component">
+                  <div class="component-head">
+                    <span>Эталонный результат</span>
+                    <code>groundtruth_workspace/</code>
+                  </div>
+                  <p><code>analysis_report.txt</code> с корректными расчётами, курсами, прогнозом и ссылкой на диаграмму используется при разработке проверки.</p>
+                </article>
+
+                <article class="kit-component evaluator-component">
+                  <div class="component-head">
+                    <span>Проверка результата</span>
+                    <code>evaluation/main.py</code>
+                  </div>
+                  <ul>
+                    <li>проверяет наличие и структуру <code>analysis_report.txt</code>;</li>
+                    <li>сверяет курсы, план в рублях, проценты выполнения и средние значения;</li>
+                    <li>ищет прогноз на II квартал и ссылку на созданную диаграмму;</li>
+                    <li>по траектории подтверждает работу с источниками и файлами.</li>
+                  </ul>
+                </article>
+
+                <div class="evaluation-result" aria-label="Результат проверки">
+                  <span>Итог прогона</span>
+                  <code>eval_res.json</code>
+                  <strong><b>{"pass": true}</b> или <b>{"pass": false}</b> с причиной ошибки</strong>
+                </div>
+              </div>
+            </section>
+
+            <aside class="optional-trajectory panel" aria-labelledby="trajectory-title">
+              <span class="zone-badge violet">Необязательно</span>
+              <div>
+                <h2 id="trajectory-title">Эталонная траектория</h2>
+                <p><code>tool_call_graph.json</code> описывает разумный путь решения и нужен для диагностических метрик. Агенту этот граф не показывается.</p>
+              </div>
+              <div class="trajectory-mini" aria-label="Пример этапов эталонной траектории">
+                <span>прочитать CSV</span>
+                <b>→</b>
+                <span>получить курсы и прогноз</span>
+                <b>→</b>
+                <span>построить диаграмму</span>
+                <b>→</b>
+                <span>записать и проверить отчёт</span>
+              </div>
+            </aside>
+
+            <div class="task-quality-checks" aria-label="Граница видимости компонентов задачи">
+              <span><b>1</b> агент видит постановку, исходные файлы и доступные tools</span>
+              <span><b>2</b> эталонный результат и код проверки агенту не показываются</span>
+              <span><b>3</b> после прогона сохраняются рабочая папка, траектория и результат проверки</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="scene" id="scene-metrics" aria-labelledby="metrics-title">
+          <div class="scene-head compact">
+            <p class="eyebrow">Актуальные замеры</p>
+            <h1 id="metrics-title">Как сравниваем модели и harness</h1>
+            <p>Итоговая таблица собирает PASS/FAIL из проверки, статистику прогона и метрики вызовов tool относительно золотой траектории.</p>
+          </div>
+
+          <div class="metrics-layout">
+            <div class="metric-defs panel">
+              <h2>Набор метрик</h2>
+              <div class="metric-group">
+                <h3>Успешность</h3>
+                <div class="metric-card">
+                  <strong>PassAtK(k=1) <em>pass@1 ↑</em></strong>
+                  <span>Доля успешных отдельных запусков среди всех попыток.</span>
+                </div>
+                <div class="metric-card">
+                  <strong>PassAtK(k=3) <em>pass@3 ↑</em></strong>
+                  <span>Доля задач, где успешна хотя бы одна из трёх попыток.</span>
+                </div>
+                <div class="metric-card">
+                  <strong>PassAllK(k=3) <em>pass^3 ↑</em></strong>
+                  <span>Доля задач, где успешно завершились все три попытки.</span>
+                </div>
+              </div>
+              <div class="metric-group oracle-group">
+                <h3>Траектория и ресурсы</h3>
+                <div class="metric-card">
+                  <strong>ModelCalls <em>model calls ↓</em></strong>
+                  <span>Среднее число запросов к модели на одну задачу.</span>
+                </div>
+                <div class="metric-card">
+                  <strong>NumToolCalls <em>tool calls ↓</em></strong>
+                  <span>Среднее число исполненных вызовов tools на одну задачу.</span>
+                </div>
+                <div class="metric-card">
+                  <strong>ToolSelectionAccuracy <em>tool_acc ↑</em></strong>
+                  <span>Позиционное совпадение имён tools с золотой траекторией.</span>
+                </div>
+                <div class="metric-card">
+                  <strong>ToolRedundancy <em>dupes ↓</em></strong>
+                  <span>Доля повторных вызовов одного tool с теми же аргументами.</span>
+                </div>
+                <div class="metric-card">
+                  <strong>TimeToSuccess <em>time/task ↓</em></strong>
+                  <span>Среднее время выполнения задачи в секундах.</span>
+                </div>
+                <div class="metric-card">
+                  <strong>TokenUsage.total_tokens <em>tokens/task ↓</em></strong>
+                  <span>Среднее число входных и выходных токенов на задачу.</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="metric-flow panel">
+              <h2>Как формируются числа</h2>
+              <div class="metric-explain-grid">
+                <span><strong>pass@1</strong><em>успешные запуски / все запуски</em></span>
+                <span><strong>pass@3</strong><em>задачи с ≥ 1 успехом / все задачи</em></span>
+                <span><strong>pass^3</strong><em>задачи с 3 успехами / все задачи</em></span>
+                <span><strong>Вызовы</strong><em>средние <code>model_calls</code> и <code>tool_calls</code> из <code>messages</code></em></span>
+                <span><strong>Время и токены</strong><em>среднее значение на одну задачу</em></span>
+                <span><strong>Tools</strong><em>совпадение с эталонной траекторией; дубли считаются по <code>name + args</code></em></span>
+              </div>
+            </div>
+
+            <div class="leaderboard-panel panel">
+              <div class="leaderboard-head">
+                <h2>Результаты моделей</h2>
+                <span>50 задач · k = 3</span>
+              </div>
+              <table class="leaderboard-table" aria-label="Актуальные метрики моделей">
+                <thead>
+                  <tr>
+                    <th>Модель</th>
+                    <th>harness</th>
+                    <th data-direction="up">pass@1 ↑</th>
+                    <th data-direction="up">pass@3 ↑</th>
+                    <th data-direction="up">pass^3 ↑</th>
+                    <th data-direction="down">model calls ↓</th>
+                    <th data-direction="down">tool calls ↓</th>
+                    <th data-direction="up">tool_acc ↑</th>
+                    <th data-direction="down">dupes ↓</th>
+                    <th data-direction="down">time/task ↓</th>
+                    <th data-direction="down">tokens/task ↓</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>GPT-5.4</strong></td>
+                    <td><span class="harness-chip base">basic</span></td>
+                    <td class="score high">70.0%</td>
+                    <td class="score high">78.0%</td>
+                    <td class="score high">66.0%</td>
+                    <td>10.1</td>
+                    <td>17.9</td>
+                    <td>12.5%</td>
+                    <td>2.4%</td>
+                    <td>56.8 с</td>
+                    <td>187k</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Qwen3.5-397B-A17B</strong></td>
+                    <td><span class="harness-chip base">basic</span></td>
+                    <td class="score high">61.3%</td>
+                    <td class="score high">74.0%</td>
+                    <td class="score mid">46.0%</td>
+                    <td>12.8</td>
+                    <td>16.4</td>
+                    <td>35.3%</td>
+                    <td>4.5%</td>
+                    <td>60.9 с</td>
+                    <td>303k</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Claude Opus 4.8</strong></td>
+                    <td><span class="harness-chip base">basic</span></td>
+                    <td class="score high">60.0%</td>
+                    <td class="score high">66.0%</td>
+                    <td class="score high">56.0%</td>
+                    <td>11.4</td>
+                    <td>16.2</td>
+                    <td>18.1%</td>
+                    <td>4.4%</td>
+                    <td>116.7 с</td>
+                    <td>263k</td>
+                  </tr>
+                  <tr>
+                    <td><strong>DeepSeek V4 Flash</strong></td>
+                    <td><span class="harness-chip base">basic</span></td>
+                    <td class="score mid">58.0%</td>
+                    <td class="score high">64.0%</td>
+                    <td class="score mid">50.0%</td>
+                    <td>16.6</td>
+                    <td>21.7</td>
+                    <td>15.9%</td>
+                    <td>3.4%</td>
+                    <td>110.3 с</td>
+                    <td>619k</td>
+                  </tr>
+                  <tr>
+                    <td><strong>DeepSeek V4 Pro</strong></td>
+                    <td><span class="harness-chip base">basic</span></td>
+                    <td class="score mid">55.3%</td>
+                    <td class="score high">62.0%</td>
+                    <td class="score mid">48.0%</td>
+                    <td>13.6</td>
+                    <td>18.4</td>
+                    <td>23.4%</td>
+                    <td>3.8%</td>
+                    <td>139.0 с</td>
+                    <td>355k</td>
+                  </tr>
+                  <tr>
+                    <td><strong>GLM-5.2</strong></td>
+                    <td><span class="harness-chip base">basic</span></td>
+                    <td class="score mid">52.0%</td>
+                    <td class="score mid">60.0%</td>
+                    <td class="score mid">44.0%</td>
+                    <td>11.5</td>
+                    <td>15.3</td>
+                    <td>29.4%</td>
+                    <td>1.7%</td>
+                    <td>86.3 с</td>
+                    <td>274k</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Qwen3.6-35B-A3B</strong></td>
+                    <td><span class="harness-chip base">basic</span></td>
+                    <td class="score mid">50.7%</td>
+                    <td class="score mid">60.0%</td>
+                    <td class="score mid">40.0%</td>
+                    <td>14.4</td>
+                    <td>18.2</td>
+                    <td>37.8%</td>
+                    <td>5.2%</td>
+                    <td>35.4 с</td>
+                    <td>265k</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Gemma 4 26B A4B-IT</strong></td>
+                    <td><span class="harness-chip base">basic</span></td>
+                    <td class="score low">36.0%</td>
+                    <td class="score low">48.0%</td>
+                    <td class="score low">26.0%</td>
+                    <td>9.6</td>
+                    <td>8.6</td>
+                    <td>11.7%</td>
+                    <td>2.9%</td>
+                    <td>181.6 с</td>
+                    <td>157k</td>
+                  </tr>
+                  <tr>
+                    <td><strong>GigaChat-3.5-432B-A28B</strong></td>
+                    <td><span class="harness-chip base">basic</span></td>
+                    <td class="score low">25.3%</td>
+                    <td class="score low">32.0%</td>
+                    <td class="score low">20.0%</td>
+                    <td>31.2</td>
+                    <td>30.6</td>
+                    <td>17.5%</td>
+                    <td>26.4%</td>
+                    <td>81.6 с</td>
+                    <td class="pending-metric">⏳</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="experiment-formula" aria-label="Из чего складывается сравнение">
+            <span><strong>50 задач</strong><small>фиксированный набор</small></span>
+            <b>×</b>
+            <span><strong>модель × harness</strong><small>сравниваемая связка</small></span>
+            <b>×</b>
+            <span><strong>k попыток</strong><small>повторные запуски</small></span>
+            <b>→</b>
+            <span><strong>PASS / FAIL задач</strong><small>результаты проверки</small></span>
+            <b>→</b>
+            <span><strong>агрегированные метрики</strong><small>сравнение связок</small></span>
+          </div>
+        </section>
+
+        <section class="scene" id="scene-gigachat" aria-labelledby="gigachat-title">
+          <div class="scene-head compact gigachat-head">
+            <p class="eyebrow">GigaChat-3.5-432B-A28B · ru_office_local · все 50 задач</p>
+            <h1 id="gigachat-title">Аналитика прогона GigaChat</h1>
+            <p>Метрики и KPI по полному набору из 50 задач.</p>
+          </div>
+
+          <div class="gigachat-layout">
+            <div class="gigachat-kpi-row" aria-label="Ключевые показатели">
+              <article class="gigachat-kpi">
+                <span class="gigachat-kpi-label">pass@1</span>
+                <strong class="gigachat-kpi-num">25.3%</strong>
+                <span class="gigachat-kpi-sub">среднее по попыткам · 50 задач</span>
+              </article>
+              <article class="gigachat-kpi is-pass">
+                <span class="gigachat-kpi-label">Pass</span>
+                <strong class="gigachat-kpi-num">11</strong>
+                <span class="gigachat-kpi-sub">eval пройден</span>
+              </article>
+              <article class="gigachat-kpi is-fail">
+                <span class="gigachat-kpi-label">Fail</span>
+                <strong class="gigachat-kpi-num">19</strong>
+                <span class="gigachat-kpi-sub">eval не пройден</span>
+              </article>
+              <article class="gigachat-kpi is-turns">
+                <span class="gigachat-kpi-label">max_turns</span>
+                <strong class="gigachat-kpi-num">9</strong>
+                <span class="gigachat-kpi-sub">лимит ходов</span>
+              </article>
+            </div>
+
+            <aside class="gigachat-filter-note">
+              Все <strong>50</strong> в знаменателе: pass 11 · fail 19 · max_turns 9 · infra 11 (MCP init / timeout).
+            </aside>
+
+            <section class="gigachat-fail-panel" aria-labelledby="gigachat-fail-title">
+              <div class="gigachat-panel-head">
+                <h2 id="gigachat-fail-title">Что видно в Fail</h2>
+                <span>19 задач · другой режим, не max_turns</span>
+              </div>
+              <div class="gigachat-fail-stats" aria-label="Сводка по fail">
+                <span><b>18/19</b> traj status = success</span>
+                <span><b>12/19</b> без tool errors</span>
+                <span><b>15/19</b> вызвали claim_done</span>
+              </div>
+              <p class="gigachat-panel-lead">
+                Агент чаще доходит до конца и заявляет готовность; eval отклоняет результат.
+                Это не зацикливание на ошибке tool — в отличие от max_turns.
+              </p>
+              <div class="gigachat-fail-modes">
+                <article class="gigachat-fail-mode">
+                  <header><strong>Нет нужного артефакта</strong><span>~5</span></header>
+                  <p>Файл или обязательное действие, которое ждал чекер, отсутствует (нет xlsx/csv/docx, нет нужного write).</p>
+                </article>
+                <article class="gigachat-fail-mode">
+                  <header><strong>Контент неполный или неточный</strong><span>~12</span></header>
+                  <p>Артефакт есть, но не сходится с GT: мало строк, нет узла/шага/маркера, таблица Word ≠ Excel. Пример: в <code>pitch-deck</code> на слайде остался <code>Pitch Deck Template</code>.</p>
+                </article>
+              </div>
+            </section>
+
+            <div class="gigachat-main-grid">
+              <section class="gigachat-panel" aria-labelledby="gigachat-tools-title">
+                <div class="gigachat-panel-head">
+                  <h2 id="gigachat-tools-title">С какими MCP и аргументами не справляется</h2>
+                  <span>1261 tool calls · 594 ошибок · только включённые задачи</span>
+                </div>
+                <p class="gigachat-panel-lead">
+                  Основной кластер — <code>excel-write_data_to_excel</code>: в <code>data</code> приходят строки вместо list-of-lists, pydantic отвечает validation error.
+                </p>
+                <table class="gigachat-tools-table" aria-label="Топ tools с ошибками">
+                  <thead>
+                    <tr>
+                      <th>Tool</th>
+                      <th>calls</th>
+                      <th>errors</th>
+                      <th>rate</th>
+                      <th>kind</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><code>excel-write_data_to_excel</code></td>
+                      <td>500</td>
+                      <td>496</td>
+                      <td>99%</td>
+                      <td>validation</td>
+                    </tr>
+                    <tr>
+                      <td><code>local-python-execute</code></td>
+                      <td>49</td>
+                      <td>47</td>
+                      <td>96%</td>
+                      <td>traceback</td>
+                    </tr>
+                    <tr>
+                      <td><code>excel-rename_worksheet</code></td>
+                      <td>39</td>
+                      <td>28</td>
+                      <td>72%</td>
+                      <td>ENOENT</td>
+                    </tr>
+                    <tr>
+                      <td><code>excel-read_data_from_excel</code></td>
+                      <td>27</td>
+                      <td>12</td>
+                      <td>44%</td>
+                      <td>tool_error / ENOENT</td>
+                    </tr>
+                    <tr>
+                      <td><code>excel-create_workbook</code></td>
+                      <td>8</td>
+                      <td>3</td>
+                      <td>38%</td>
+                      <td>tool_error</td>
+                    </tr>
+                    <tr>
+                      <td><code>filesystem-list_directory</code></td>
+                      <td>15</td>
+                      <td>2</td>
+                      <td>13%</td>
+                      <td>ENOENT</td>
+                    </tr>
+                    <tr>
+                      <td><code>excel-create_worksheet</code></td>
+                      <td>8</td>
+                      <td>1</td>
+                      <td>12%</td>
+                      <td>tool_error</td>
+                    </tr>
+                    <tr>
+                      <td><code>excel-apply_formula</code></td>
+                      <td>22</td>
+                      <td>1</td>
+                      <td>5%</td>
+                      <td>tool_error</td>
+                    </tr>
+                    <tr>
+                      <td><code>excel-create_chart</code></td>
+                      <td>4</td>
+                      <td>1</td>
+                      <td>25%</td>
+                      <td>tool_error</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+
+              <section class="gigachat-panel gigachat-loops" aria-labelledby="gigachat-loops-title">
+                <div class="gigachat-panel-head">
+                  <h2 id="gigachat-loops-title">Повтор одного и того же вызова</h2>
+                  <span>паттерн на max_turns</span>
+                </div>
+                <p class="gigachat-panel-lead">
+                  На задачах с max_turns типичен цикл: tool возвращает явную ошибку в result, следующий вызов повторяет тот же tool с теми же или близкими args.
+                </p>
+
+                <div class="gigachat-case-grid">
+                  <article class="gigachat-case">
+                    <header>
+                      <strong>validation · schema args</strong>
+                      <code>ru-manual-office-budget-pending-to-approved</code>
+                    </header>
+                    <p class="gigachat-case-meta"><code>excel-write_data_to_excel</code> · одинаковый вызов <b>96×</b></p>
+                    <div class="gigachat-case-pair">
+                      <div>
+                        <span>error</span>
+                        <pre>validation error … data.0 Input should be a valid list
+input_value='Approved', input_type=str</pre>
+                      </div>
+                      <div>
+                        <span>следующий call (без правки формы)</span>
+                        <pre>{
+  "sheet_name": "2025",
+  "start_cell": "C3",
+  "data": ["Approved"]
+}</pre>
+                      </div>
+                    </div>
+                  </article>
+
+                  <article class="gigachat-case">
+                    <header>
+                      <strong>ENOENT · лист не найден</strong>
+                      <code>ru-manual-office-excel-invoices-merge</code>
+                    </header>
+                    <p class="gigachat-case-meta"><code>excel-rename_worksheet</code> · одинаковый вызов <b>11×</b></p>
+                    <div class="gigachat-case-pair">
+                      <div>
+                        <span>error</span>
+                        <pre>Error: Sheet 'Лист1' not found</pre>
+                      </div>
+                      <div>
+                        <span>следующий call (тот же old_name)</span>
+                        <pre>{
+  "old_name": "Лист1",
+  "new_name": "допотчет 11",
+  "filepath": "…/для бухгалтерии 11.02.xlsx"
+}</pre>
+                      </div>
+                    </div>
+                  </article>
+                </div>
+              </section>
+            </div>
+          </div>
+        </section>
+
+        <section class="scene" id="scene-contacts" aria-labelledby="contacts-title">
+          <div class="scene-head compact contacts-head">
+            <p class="eyebrow">Контакты и материалы</p>
+            <h1 id="contacts-title">Кто работает над SREDA-MCP</h1>
+            <p>Бенчмарк создаётся совместно несколькими командами. Здесь собраны участники проекта, основной контакт и внутренние материалы.</p>
+          </div>
+
+          <div class="contacts-layout">
+            <div class="contact-team-grid" aria-label="Команды проекта">
+              <section class="contact-team-card team-agi">
+                <div class="contact-team-head">
+                  <span>01</span>
+                  <h2>AGI NLP</h2>
+                </div>
+                <ul class="contact-people">
+                  <li>
+                    <strong>Ульяна Исаева</strong>
+                    <div class="person-links">
+                      <a href="https://t.me/ulyana_isaeva" target="_blank" rel="noreferrer">@ulyana_isaeva</a>
+                      <a href="mailto:uvisaeva@sberbank.ru">uvisaeva@sberbank.ru</a>
+                    </div>
+                  </li>
+                  <li><strong>Артем Погадаев</strong></li>
+                  <li><strong>Артем Червяков</strong></li>
+                  <li><strong>Алена Феногенова</strong></li>
+                </ul>
+              </section>
+
+              <section class="contact-team-card team-risk">
+                <div class="contact-team-head">
+                  <span>02</span>
+                  <h2>Управление модельных рисков</h2>
+                </div>
+                <ul class="contact-people">
+                  <li><strong>Дмитрий Горбецкий</strong></li>
+                  <li><strong>Александра Старикова-Насибуллина</strong></li>
+                  <li><strong>Мария Лашина</strong></li>
+                </ul>
+              </section>
+
+              <section class="contact-team-card team-core">
+                <div class="contact-team-head">
+                  <span>03</span>
+                  <h2>Optimal Cognitive Core</h2>
+                </div>
+                <ul class="contact-people">
+                  <li><strong>Андрей Галичин</strong></li>
+                  <li><strong>Дарья Пугачева</strong></li>
+                </ul>
+              </section>
+
+              <section class="contact-team-card team-methodology">
+                <div class="contact-team-head">
+                  <span>04</span>
+                  <h2>Команда методологии</h2>
+                </div>
+                <ul class="contact-people">
+                  <li><strong>Анна Костикова</strong></li>
+                  <li><strong>Александра Смоленкова</strong></li>
+                  <li><strong>Элина Басырова</strong></li>
+                </ul>
+              </section>
+            </div>
+
+            <aside class="contact-resources" aria-label="Ссылки на материалы">
+              <div class="contact-resources-head">
+                <span>Материалы</span>
+                <h2>Где продолжить работу</h2>
+              </div>
+
+              <a class="resource-link resource-gitlab" href="https://gitlab.ai.cloud.ru/agi-nlp/toolbench/toolathlon" target="_blank" rel="noreferrer">
+                <span class="resource-kicker">GitLab</span>
+                <strong>Репозиторий</strong>
+                <code>agi-nlp/toolbench/toolathlon</code>
+                <b aria-hidden="true">↗</b>
+              </a>
+
+              <a class="resource-link resource-confluence" href="https://confluence.sberdevices.ru/pages/viewpage.action?pageId=516194095" target="_blank" rel="noreferrer">
+                <span class="resource-kicker">Confluence</span>
+                <strong>Документация</strong>
+                <small>Описание бенчмарка и рабочие материалы</small>
+                <b aria-hidden="true">↗</b>
+              </a>
+            </aside>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
