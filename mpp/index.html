@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Предложение трайбу Digital Reporting о совместном создании MPP-бенчмарка на основе опыта SREDA-MCP." />
+    <title>SREDA × Digital Reporting — предложение о MPP-бенчмарке</title>
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">К содержанию</a>
+    <div class="site-shell">
+      <header class="site-header">
+        <a class="brand" href="https://gitlab.ai.cloud.ru/agi-nlp/toolbench/toolathlon/-/tree/evals?ref_type=heads" aria-label="Открыть репозиторий SREDA в GitLab">
+          <span class="brand-mark" aria-hidden="true">S</span>
+          <span class="brand-name">SREDA</span>
+        </a>
+        <nav class="site-nav" aria-label="Разделы страницы">
+          <a href="#how">Как устроено</a>
+          <a href="#example">Пример задачи</a>
+          <a href="#together">Форматы работы</a>
+        </nav>
+      </header>
+
+      <main id="main">
+        <section class="hero" aria-labelledby="hero-title">
+          <div class="hero-copy">
+            <h1 id="hero-title">Предложение по созданию MPP-бенчмарка</h1>
+            <p class="hero-lead">SREDA-MCP — бенчмарк для связки «агент + модель»: агент работает с инструментами и данными в воспроизводимой среде, а отдельная проверка определяет, решена ли задача. Предлагаем трайбу Digital Reporting вместе создать бенчмарк для задач MPP-стека.</p>
+            <div class="hero-actions">
+              <a class="button button-secondary" href="#example">Посмотреть задачу <span aria-hidden="true">↓</span></a>
+            </div>
+          </div>
+          <div class="hero-visual" aria-label="Схема прогона: задача, агент, рабочая среда, проверка">
+            <div class="visual-topline"><span>ОДИН ПРОГОН</span><span>01 / SREDA</span></div>
+            <div class="visual-task"><span class="visual-index">01</span><div><small>ЗАДАЧА</small><strong>Постановка + критерии</strong></div></div>
+            <div class="visual-middle"><span class="visual-stem" aria-hidden="true"></span><div class="visual-agent"><small>АГЕНТ × МОДЕЛЬ</small><strong>Выбор и вызов tools</strong></div></div>
+            <div class="visual-split"><div><small>СРЕДА</small><strong>Данные · MCP · файлы</strong></div><div><small>СЛЕД</small><strong>Артефакт · траектория</strong></div></div>
+            <div class="visual-result"><span class="status-dot" aria-hidden="true"></span><strong>Автопроверка</strong><span>PASS / FAIL</span></div>
+          </div>
+        </section>
+
+        <div class="fact-strip" aria-label="Состояние и планы бенчмарка">
+          <div><strong>85</strong><span>задач в текущем наборе</span></div>
+          <div><strong>Локально</strong><span>данные и сервисы для воспроизводимых прогонов</span></div>
+          <div><strong>100</strong><span>цель расширения набора</span></div>
+          <div><strong>Harbor</strong><span>следующий формат задач и движок</span></div>
+        </div>
+
+        <section class="section section-how" id="how" aria-labelledby="how-title">
+          <div class="section-heading">
+            <div><p class="section-kicker">01 / МЕХАНИКА</p><h2 id="how-title">Как мы создаём и добавляем задачи</h2></div>
+            <p>Начинали с собственных офисных сценариев, затем адаптировали задачи из Toolathlon Gym. Сейчас команда разметки формализует новые идеи по тематике и матрице сложности; разработчики реализуют их совместно с коллегами.</p>
+          </div>
+          <div class="process-grid">
+            <article class="process-step"><span>01</span><h3>Сценарий</h3><p>Реальная рабочая потребность, ожидаемый результат и наблюдаемые критерии успеха.</p></article>
+            <article class="process-step"><span>02</span><h3>Формализация</h3><p>Постановка на русском языке, уровень сложности, исходные данные и правила проверки.</p></article>
+            <article class="process-step"><span>03</span><h3>Среда</h3><p>Локальные данные, нужные MCP и, при необходимости, сервисы на PostgreSQL с фиксированным состоянием.</p></article>
+            <article class="process-step"><span>04</span><h3>Проверка</h3><p>Код отдельно оценивает итоговые файлы или состояние сервисов; траектория помогает разобрать ход решения.</p></article>
+            <article class="process-step"><span>05</span><h3>Ревью</h3><p>Проверяем однозначность условий, воспроизводимость среды и то, что критерии отличают успех от частичного результата.</p></article>
+          </div>
+          <div class="architecture-note"><span class="note-icon" aria-hidden="true">◎</span><p><strong>Откуда взялась архитектура.</strong> SREDA развивается как форк Toolathlon. Схема inference перенесена из Toolathlon Gym; зависимости задач от внешних сервисов заменены локальными сервисами и фикстурами. Дальше планируем задачи и движок в формате Harbor.</p></div>
+        </section>
+
+        <section class="section section-example" id="example" aria-labelledby="example-title">
+          <div class="section-heading">
+            <div><p class="section-kicker">02 / ПРИМЕР ИЗ НАБОРА</p><h2 id="example-title">Одна задача — весь цикл</h2></div>
+            <p>Текущий офисный кейс с PostgreSQL показывает механику. Это пример устройства задачи, а не готовый MPP-кейс: предметную часть и критерии MPP предложим разработать вместе.</p>
+          </div>
+          <div class="example-layout">
+            <div class="example-story">
+              <span class="case-label">ru-postgres-store-analytics-report</span>
+              <h3>От базы магазина<br />к аналитическому отчёту</h3>
+              <p>Агент через <code>postgres</code> изучает таблицы клиентов, товаров и заказов, выполняет SELECT-запросы и сохраняет <code>analysis/report.md</code>.</p>
+              <div class="case-rule"><span>Правило расчёта</span><strong>Выручка = количество × цена; учитываются только заказы <code>completed</code>.</strong></div>
+              <ul class="case-checks">
+                <li><span>01</span> Посчитать клиентов, заказы, выручку и средний чек.</li>
+                <li><span>02</span> Найти лидирующие товар и регион по выручке.</li>
+                <li><span>03</span> Сохранить отчёт в заданном формате.</li>
+              </ul>
+            </div>
+            <div class="example-package" aria-label="Файлы и проверка примера задачи">
+              <div class="package-head"><span class="package-dots" aria-hidden="true">● ● ●</span><span>ПАКЕТ ЗАДАЧИ</span></div>
+              <div class="package-row"><code>docs/task.md</code><span>что должен сделать агент</span></div>
+              <div class="package-row"><code>task_config.json</code><span>доступные MCP и локальные tools</span></div>
+              <div class="package-row"><code>preprocess/</code><span>подготовка данных в PostgreSQL</span></div>
+              <div class="package-row is-output"><code>analysis/report.md</code><span>результат работы агента</span></div>
+              <div class="package-row"><code>evaluation/main.py</code><span>независимый пересчёт из БД и сверка отчёта</span></div>
+              <div class="package-footer"><span class="status-dot" aria-hidden="true"></span> Проверяем содержание результата, а не только наличие файла.</div>
+            </div>
+          </div>
+          <div class="mpp-bridge"><span>КАК ЭТО ПЕРЕНОСИТСЯ НА MPP</span><p>На место базы и бизнес-правил примера ставим согласованный сценарий для Greenplum, ClickHouse, StarRocks или другого MPP-движка: тестовые данные, способ доступа, ограничения агента и проверяемые критерии. MCP может быть и средством работы, и частью того, что мы оцениваем.</p></div>
+        </section>
+
+        <section class="section section-together" id="together" aria-labelledby="together-title">
+          <div class="section-heading">
+            <div><p class="section-kicker">03 / СОВМЕСТНАЯ РАБОТА</p><h2 id="together-title">Три пути создания MPP-бенчмарка</h2></div>
+            <p>Все три варианта ведут к единому набору проверяемых задач. Можно выбрать удобный формат после обсуждения объёма кейсов и доступных ресурсов.</p>
+          </div>
+          <div class="options-grid">
+            <article class="option-card"><div class="option-top"><span>ВАРИАНТ 01</span><span class="option-glyph" aria-hidden="true">↗</span></div><h3>Вы разрабатываете,<br />мы ревьюим</h3><p>Трайб Digital Reporting готовит задачи и открывает MR во внутреннем GitLab. Мы проверяем структуру, среду и оценивание перед включением.</p><dl><div><dt>Плюс</dt><dd>Предметная экспертиза остаётся у авторов кейсов.</dd></div><div><dt>Нужно учесть</dt><dd>Потребуется время команды на реализацию и доработку после ревью.</dd></div></dl></article>
+            <article class="option-card"><div class="option-top"><span>ВАРИАНТ 02</span><span class="option-glyph" aria-hidden="true">↘</span></div><h3>Мы реализуем,<br />вы даёте материалы</h3><p>Вы передаёте постановки, критерии, тестовые данные, описание MPP-среды и необходимые MCP. Мы собираем исполняемые задачи и согласуем результат.</p><dl><div><dt>Плюс</dt><dd>Меньше инженерной работы для трайба Digital Reporting.</dd></div><div><dt>Оценка</dt><dd>10 задач с нуля — около 40 часов на полный цикл: архитектура, формализация, среда, реализация и проверка. При повторяемом формате ориентир — до 15 задач в неделю.</dd></div><div><dt>Условие</dt><dd>Оценку уточним после просмотра кейсов и материалов.</dd></div></dl></article>
+            <article class="option-card"><div class="option-top"><span>ВАРИАНТ 03</span><span class="option-glyph" aria-hidden="true">⇄</span></div><h3>Делим задачи<br />между командами</h3><p>Часть кейсов реализуете вы, часть берём мы. Общие требования и взаимное ревью помогают сохранить единый стандарт.</p><dl><div><dt>Плюс</dt><dd>Можно вести несколько задач параллельно.</dd></div><div><dt>Нужно учесть</dt><dd>Понадобятся договорённости о владельцах и критериях приёмки.</dd></div></dl></article>
+          </div>
+          <div class="closing"><p>Для пилота достаточно нескольких репрезентативных кейсов: постановок, тестовых данных, требований к окружению и критериев успешного решения. Дальше определим формат совместной работы.</p><a class="button button-light" href="#how">Вернуться к процессу <span aria-hidden="true">↑</span></a></div>
+        </section>
+      </main>
+
+      <footer class="site-footer"><span>SREDA × Digital Reporting</span><span>Предложение о совместной разработке · 2026</span></footer>
+    </div>
+  </body>
+</html>
